@@ -2,9 +2,6 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import Input from '../../components/common/Input';
-import Button from '../../components/common/Button';
-import { Package } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,53 +27,100 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-md p-8">
-        <div className="flex flex-col items-center mb-8">
-          <div className="bg-blue-600 p-3 rounded-full mb-4">
-            <Package className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">Suplementos</h1>
-          <p className="text-gray-600 mt-2">Sistema de Gestión</p>
-        </div>
+    <div className="min-vh-100 d-flex align-items-center justify-content-center"
+         style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+            <div className="card shadow-lg border-0 rounded-4">
+              <div className="card-body p-4 p-md-5">
+                {/* Logo y título */}
+                <div className="text-center mb-4">
+                  <div className="bg-primary d-inline-flex align-items-center justify-content-center rounded-circle p-3 mb-3"
+                       style={{ width: '80px', height: '80px' }}>
+                    <i className="bi bi-box-seam text-white" style={{ fontSize: '2.5rem' }}></i>
+                  </div>
+                  <h1 className="h2 fw-bold text-dark mb-2">Suplementos</h1>
+                  <p className="text-muted">Sistema de Gestión</p>
+                </div>
 
-        <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
+                {/* Formulario */}
+                <form onSubmit={handleSubmit}>
+                  {error && (
+                    <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                      {error}
+                      <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => setError('')}
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                  )}
+
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label fw-semibold">
+                      <i className="bi bi-envelope-fill me-2"></i>
+                      Correo Electrónico
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control form-control-lg"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="usuario@ejemplo.com"
+                      required
+                      autoComplete="email"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label htmlFor="password" className="form-label fw-semibold">
+                      <i className="bi bi-lock-fill me-2"></i>
+                      Contraseña
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control form-control-lg"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      required
+                      autoComplete="current-password"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-lg w-100 fw-semibold"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Iniciando sesión...
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-box-arrow-in-right me-2"></i>
+                        Iniciar Sesión
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                <div className="mt-4 text-center">
+                  <small className="text-muted">
+                    <i className="bi bi-shield-check me-1"></i>
+                    Sistema de gestión de inventario y ventas
+                  </small>
+                </div>
+              </div>
             </div>
-          )}
-
-          <Input
-            type="email"
-            label="Correo Electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="usuario@ejemplo.com"
-            required
-          />
-
-          <Input
-            type="password"
-            label="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            required
-          />
-
-          <Button
-            type="submit"
-            variant="primary"
-            className="w-full mt-6"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-          </Button>
-        </form>
-
-        <div className="mt-6 text-center text-sm text-gray-600">
-          <p>Sistema de gestión de inventario y ventas</p>
+          </div>
         </div>
       </div>
     </div>
