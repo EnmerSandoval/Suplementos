@@ -9,8 +9,8 @@ export interface User {
 }
 
 export interface LoginCredentials {
-  email: string;
-  password: string;
+  usuario: string;
+  contrasena: string;
 }
 
 export interface AuthResponse {

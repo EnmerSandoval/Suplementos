@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [usuario, setUsuario] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,10 +17,10 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      await login({ email, password });
+      await login({ usuario, contrasena: password });
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Error al iniciar sesión');
+      setError(err.response?.data?.mensaje || err.response?.data?.error || 'Error al iniciar sesión');
     } finally {
       setIsLoading(false);
     }
@@ -60,19 +60,19 @@ export default function Login() {
                   )}
 
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label fw-semibold">
-                      <i className="bi bi-envelope-fill me-2"></i>
-                      Correo Electrónico
+                    <label htmlFor="usuario" className="form-label fw-semibold">
+                      <i className="bi bi-person-fill me-2"></i>
+                      Usuario
                     </label>
                     <input
-                      type="email"
+                      type="text"
                       className="form-control form-control-lg"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="usuario@ejemplo.com"
+                      id="usuario"
+                      value={usuario}
+                      onChange={(e) => setUsuario(e.target.value)}
+                      placeholder="Ingresa tu usuario"
                       required
-                      autoComplete="email"
+                      autoComplete="username"
                     />
                   </div>
 
